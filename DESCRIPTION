@@ -1,0 +1,27 @@
+Package: MAFI
+Type: Package
+Title: Multi-Signal Aggregate Funnel Index for Publication Bias Detection
+Version: 2.2.0
+Date: 2025-01-12
+Authors@R: c(
+    person("MAFI", "Development Team", email = "mafi@example.com", role = c("aut", "cre")))
+Description: A publication bias detection tool that clusters correlated statistical
+    signals into a calibrated probability score (0-100). Version 2.2.0 addresses
+    methodological concerns: (1) signals grouped into clusters (asymmetry, selection,
+    excess significance, trim-fill) to avoid double-counting correlated measures,
+    (2) high heterogeneity (I-squared) now INCREASES suspicion (reversed from v2.1),
+    (3) small-n reliability handled via CI widening rather than point estimate penalty,
+    (4) validation includes null effect (theta=0) simulations for specificity testing,
+    (5) calibration slope metric added. The package provides bootstrap confidence
+    intervals, Bonferroni-adjusted selection model tests, and ensemble-corrected
+    effect estimates. Use validate_mafi() to assess performance.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Depends: R (>= 4.0.0)
+Imports:
+    metafor (>= 4.0.0),
+    stats
+Suggests:
+    testthat
+RoxygenNote: 7.2.3
