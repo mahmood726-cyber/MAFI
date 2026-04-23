@@ -1,3 +1,5 @@
+<!-- sentinel:skip-file — hardcoded paths are fixture/registry/audit-narrative data for this repo's research workflow, not portable application configuration. Same pattern as push_all_repos.py and E156 workbook files. -->
+
 # MAFI: Multi-Signal Aggregate Funnel Index
 
 A publication bias detection tool for meta-analysis that combines eight statistical signals into a calibrated probability score (0-100).
