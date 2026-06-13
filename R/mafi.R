@@ -394,7 +394,7 @@ mafi_classify <- function(score, n_studies = 15, ci_width = NULL) {
   base_thresholds <- c(25, 40, 55, 70)
   thresholds <- if (n_studies < 10) base_thresholds + 10 else if (n_studies < 15) base_thresholds + 5 else base_thresholds
 
-  if (is.null(ci_width)) {
+  if (is.null(ci_width) || is.na(ci_width)) {
     confidence <- ifelse(n_studies >= 20, "High", ifelse(n_studies >= 10, "Moderate", "Low"))
   } else {
     ci_conf <- ifelse(ci_width < 15, "High", ifelse(ci_width < 30, "Moderate", "Low"))

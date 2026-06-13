@@ -1,3 +1,10 @@
+# NOTE: Superseded legacy implementation, retained for reference only.
+# This file lives under inst/legacy/ (NOT R/) so it is NOT sourced when the
+# package is built/loaded. It previously sat in R/ alongside mafi.R (v2.2.0),
+# where R sources files alphabetically and these older v2.1 definitions would
+# overwrite the current v2.2 ones at load time. The package now ships v2.2.0
+# from R/mafi.R only.
+
 #' MAFI: Multi-Signal Aggregate Funnel Index v2.1.0
 #'
 #' A publication bias detection tool that combines multiple statistical signals

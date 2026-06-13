@@ -33,3 +33,9 @@ PROGRESS.md
 # Local agent config
 .claude/
 CLAUDE.local.md
+
+# Sentinel scan artifacts
+sentinel-findings.md
+sentinel-findings.jsonl
+STUCK_FAILURES.md
+STUCK_FAILURES.jsonl

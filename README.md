@@ -18,7 +18,7 @@ A publication bias detection tool for meta-analysis that combines eight statisti
 ## Installation
 
 ```r
-install.packages("C:/Users/user/MAFI", repos = NULL, type = "source")
+install.packages("path/to/MAFI", repos = NULL, type = "source")
 ```
 
 ## Quick Start

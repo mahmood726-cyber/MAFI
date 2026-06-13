@@ -29,7 +29,7 @@ for (k in k_values) {
 
     for (sim in 1:n_sims) {
       # Generate meta-analysis with publication bias
-      dat <- .simulate_biased_ma(
+      dat <- simulate_biased_ma(
         k = k,
         theta = theta_true,
         tau = tau_true,
