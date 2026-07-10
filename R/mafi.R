@@ -29,7 +29,7 @@ NULL
 #
 # CLUSTER 1 - Funnel Asymmetry (correlated, r > 0.6):
 #   - egger_pval: Regression-based asymmetry test
-#   - pet_intercept: PET intercept significance
+#   - pet_slope: PET slope on sei (FAT/Egger asymmetry coefficient)
 #   - begg_pval: Rank-based asymmetry test
 #   - precision_effect_cor: Direct correlation measure
 #   - small_study_effect: Effect size difference by precision
@@ -111,7 +111,7 @@ mafi_signals <- function(yi, vi, sei = NULL) {
     re_estimate = NA, re_se = NA, re_pval = NA,
     tau2 = NA, i_squared = NA,
     egger_z = NA, egger_pval = NA,
-    pet_intercept = NA, pet_intercept_se = NA,
+    pet_slope = NA, pet_slope_se = NA,
     begg_tau = NA, begg_pval = NA,
     taf_k0 = NA, taf_k0_ratio = NA, taf_estimate = NA, taf_side = NA,
     sel_estimate = NA, sel_lrt_pval = NA,
@@ -146,8 +146,13 @@ mafi_signals <- function(yi, vi, sei = NULL) {
 
     tryCatch({
       pet <- metafor::rma(yi = yi, vi = vi, mods = ~ sei, method = "REML")
-      signals$pet_intercept <- as.numeric(pet$beta[1])
-      signals$pet_intercept_se <- pet$se[1]
+      # Funnel asymmetry (FAT/Egger) is the SLOPE on sei (beta[2]), not the
+      # intercept. beta[1] is the PET-corrected effect estimate (whether an
+      # effect EXISTS), which is used for correction in mafi_correct(), NOT as
+      # an asymmetry signal. Using the intercept here false-flagged any strong
+      # genuine effect with a symmetric funnel as publication bias.
+      signals$pet_slope <- as.numeric(pet$beta[2])
+      signals$pet_slope_se <- pet$se[2]
     }, error = function(e) {})
 
     tryCatch({
@@ -272,8 +277,8 @@ mafi_score <- function(yi, vi, signals = NULL, bootstrap = FALSE, n_boot = 200) 
       asymmetry_signals <- c(asymmetry_signals, 1 / (1 + exp(k * (sig$egger_pval - params$egger_threshold))))
     }
 
-    if (!is.na(sig$pet_intercept) && !is.na(sig$pet_intercept_se) && sig$pet_intercept_se > 0) {
-      pet_z <- abs(sig$pet_intercept) / sig$pet_intercept_se
+    if (!is.na(sig$pet_slope) && !is.na(sig$pet_slope_se) && sig$pet_slope_se > 0) {
+      pet_z <- abs(sig$pet_slope) / sig$pet_slope_se
       asymmetry_signals <- c(asymmetry_signals, pmin(1, pet_z / 2))
     }
 
